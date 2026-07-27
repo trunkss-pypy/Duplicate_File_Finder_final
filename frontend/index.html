@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Duplicate Finder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <h1>🔍 Ultimate Duplicate Finder</h1>
+            <span class="subtitle">Full Pro &amp; Safe Delete</span>
+        </header>
+
+        <!-- TOP PANEL: FOLDER MANAGEMENT -->
+        <section class="panel folder-panel">
+            <label class="panel-label">Daftar Folder yang Akan Di-scan (Otomatis termasuk subfolder):</label>
+            <div class="folder-row">
+                <div class="folder-list-wrapper">
+                    <ul id="folderList" class="folder-list">
+                        <li class="empty-hint">Belum ada folder ditambahkan</li>
+                    </ul>
+                </div>
+                <div class="folder-buttons">
+                    <button id="btnAddFolder" class="btn btn-primary" onclick="addFolder()">📁 + Tambah Folder</button>
+                    <button id="btnRemoveFolder" class="btn btn-secondary" onclick="removeFolder()">🗑 - Hapus Terpilih</button>
+                    <button id="btnClearFolders" class="btn btn-danger-outline" onclick="clearFolders()">✕ Bersihkan Semua</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MIDDLE PANEL: SCAN CONTROLS -->
+        <section class="panel scan-panel">
+            <div class="scan-row">
+                <button id="btnScan" class="btn btn-scan" onclick="startScan()">▶ MULAI SCAN DUPLIKAT</button>
+                <span id="statusText" class="status-text">Status: Menunggu</span>
+                <span id="etaText" class="eta-text">ETA: -</span>
+            </div>
+            <div class="progress-row">
+                <div class="progress-bar-bg">
+                    <div id="progressFill" class="progress-fill" style="width: 0%;"></div>
+                </div>
+                <span id="progressPercent" class="progress-percent">0%</span>
+            </div>
+        </section>
+
+        <!-- MAIN SPLIT VIEW -->
+        <section class="main-split">
+            <!-- LEFT: RESULTS TABLE -->
+            <div class="split-left">
+                <div class="table-header">
+                    <span>Hasil Scan Duplikat</span>
+                    <span id="resultCount" class="result-count">0 ditemukan</span>
+                </div>
+                <div class="table-wrapper">
+                    <table id="resultTable" class="result-table">
+                        <thead>
+                            <tr>
+                                <th>File Original</th>
+                                <th>Terduga Duplikat</th>
+                                <th style="width: 140px;">Status</th>
+                                <th style="width: 60px;">Tipe</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultBody">
+                            <tr><td colspan="4" class="empty-table">Belum ada hasil scan</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- RIGHT: ACTION & PREVIEW -->
+            <div class="split-right">
+                <!-- ACTION BUTTONS -->
+                <div class="action-panel">
+                    <label class="panel-label">Tindakan Eksekusi:</label>
+                    <div class="action-buttons">
+                        <button id="btnDelete" class="btn btn-danger" onclick="deleteSelected()" disabled>🗑 Hapus File 2 (Recycle Bin)</button>
+                        <button id="btnMove" class="btn btn-warning" onclick="moveSelected()" disabled>📂 Pindahkan File 2</button>
+                        <button id="btnOpen1" class="btn btn-outline" onclick="openLocation(0)" disabled>📌 Buka Lokasi File 1</button>
+                        <button id="btnOpen2" class="btn btn-outline" onclick="openLocation(1)" disabled>📌 Buka Lokasi File 2</button>
+                    </div>
+                </div>
+
+                <!-- PREVIEW PANELS -->
+                <div class="preview-section">
+                    <div class="preview-box">
+                        <div class="preview-label">File 1 (Original):</div>
+                        <div id="preview1" class="preview-content">
+                            <span class="preview-placeholder">[Pilih baris untuk melihat]</span>
+                        </div>
+                    </div>
+                    <div class="preview-box">
+                        <div class="preview-label">File 2 (Duplikat):</div>
+                        <div id="preview2" class="preview-content">
+                            <span class="preview-placeholder">[Pilih baris untuk melihat]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirmModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h3 id="modalTitle">Konfirmasi</h3>
+            <p id="modalMessage">Apakah Anda yakin?</p>
+            <div class="modal-buttons">
+                <button id="modalCancel" class="btn btn-outline">Batal</button>
+                <button id="modalConfirm" class="btn btn-danger">Ya, Lanjutkan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALERT MODAL -->
+    <div id="alertModal" class="modal-overlay hidden">
+        <div class="modal-box modal-alert">
+            <h3 id="alertTitle">Informasi</h3>
+            <p id="alertMessage">Pesan...</p>
+            <div class="modal-buttons">
+                <button id="alertOk" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/eel.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
